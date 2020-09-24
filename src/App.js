@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
-import {findSolutionByNewton} from "./service/task1";
 import './App.css';
+import Task1 from "./components/task1/task1";
 
 class App extends Component {
-  componentDidMount() {
-    findSolutionByNewton({min: 0, max: 2}, 0.0001).then(r => console.log(r))
-  }
 
   render() {
     return (
-        <div>
-
-        </div>
+      <div>
+        <Task1/>
+      </div>
     );
   }
 }

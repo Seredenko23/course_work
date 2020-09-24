@@ -1,0 +1,8 @@
+.interval-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.intervals {
+    margin-left: 30px;
+}

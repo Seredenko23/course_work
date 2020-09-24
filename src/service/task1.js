@@ -23,11 +23,7 @@ export function findSolutionByDichotomy(interval, n) {
     let center
     for(let i = 0; i < n; i++) {
         center = (min + max) / 2
-        if(calculateEquation(center) * calculateEquation(max) >= 0) {
-            max = center
-        } else {
-            min = center
-        }
+        calculateEquation(center) * calculateEquation(max) >= 0 ? max = center : min = center
     }
     return (min + max) / 2
 }
@@ -35,11 +31,12 @@ export function findSolutionByDichotomy(interval, n) {
 export async function findSolutionByNewton(interval, e) {
     let x1 = interval.max
     let x2 = undefined
-    while(!(Math.abs(x2) - Math.abs(x1) < e)) {
+    debugger
+    while(!(Math.abs(Math.abs(x2) - Math.abs(x1)) < e)) {
         let res = await getInfo(query + x1)
         let equation = res.queryresult.pods[0].subpods[0].plaintext
         x2 = x1
-        x1 = calculateRootAtZero(equation)
+        x1 = +calculateRootAtZero(equation).toFixed(getAmountAfterDot(e))
     }
     return x1
 }
