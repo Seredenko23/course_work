@@ -31,7 +31,6 @@ export function findSolutionByDichotomy(interval, n) {
 export async function findSolutionByNewton(interval, e) {
     let x1 = interval.max
     let x2 = undefined
-    debugger
     while(!(Math.abs(Math.abs(x2) - Math.abs(x1)) < e)) {
         let res = await getInfo(query + x1)
         let equation = res.queryresult.pods[0].subpods[0].plaintext
@@ -48,7 +47,7 @@ export function closestToZero(dots) {
             closest = dot
         }
     })
-    return closest
+    return closest.X
 }
 
 export async function getInfo(input) {

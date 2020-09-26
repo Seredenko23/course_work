@@ -6,9 +6,9 @@ class Menu extends Component {
     render() {
         return (
             <div className={'main-menu'}>
-                <MenuButton title={'Метод итерацій'}/>
-                <MenuButton title={'Метод дихотомії'}/>
-                <MenuButton title={'Метод Ньютона'}/>
+                {this.props.buttons.map((button) => {
+                    return (<MenuButton title={button.title} handler={button.handler}/>)
+                })}
             </div>
         );
     }
