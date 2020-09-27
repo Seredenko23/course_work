@@ -14,25 +14,23 @@ class Task1 extends Component {
             min: '0',
             step: '0.01',
             dot: '3.69',
-            solution: 3.69
+            solution: 3.69,
+            dichotomy: 8,
+            newton: 0.001,
+            mode: 'iteration'
         }
     }
 
     buttons = [
-            {title: 'Метод итерацій', handler: () => {this.setState({solution: closestToZero(this.state.data)})}},
-            {title: 'Метод дихотомії', handler: () => {this.setState({solution: findSolutionByDichotomy({min: +this.state.min, max: +this.state.max}, 0.01)})}},
-            {title: 'Метод Ньютона', handler: () => {findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.step)
-                    .then((result) => {
-                        console.log(result)
-                        this.setState({solution: result})
-                    })}}
+            {title: 'Метод итерацій', handler: () => {this.setState({mode: 'iteration'})}},
+            {title: 'Метод дихотомії', handler: () => {this.setState({mode: 'dichotomy'})}},
+            {title: 'Метод Ньютона', handler: () => {this.setState({mode: 'newton'})}}
         ]
 
     componentDidMount() {
         let data = findSolutionByIteration({min: 0, max: 5}, 0.01)
         this.setState({data: data})
         console.log(data)
-        // findSolutionByNewton({min: 0, max: 2}, 0.0001).then(r => console.log(r))
     }
 
     changeHandle = (event) => {
@@ -46,7 +44,30 @@ class Task1 extends Component {
         e.preventDefault()
         let data = findSolutionByIteration({min: +min, max: +max}, +step)
         let dot = closestToZero(data)
-        this.setState({data: data, dot: dot.X})
+        console.log(dot)
+        this.setState({data: data, dot: dot.X + ''})
+    }
+
+    calculateDot = (e) => {
+        e.preventDefault()
+        let num;
+        debugger;
+        switch(this.state.mode) {
+            case 'iteration':
+                num = closestToZero(this.state.data)
+                this.setState({solution: num})
+                break
+            case 'dichotomy':
+                num = findSolutionByDichotomy({min: +this.state.min, max: +this.state.max}, +this.state.dichotomy)
+                this.setState({solution: num})
+                break
+            case 'newton':
+                findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
+                    .then((result) => {
+                        this.setState({solution: result})
+                    })
+                break
+        }
     }
 
     render() {
@@ -84,6 +105,34 @@ class Task1 extends Component {
                             />
                         </div>
                         <button type={'submit'}>Створити</button>
+                        {this.state.mode === 'dichotomy' && (
+                        <div className={'interval-wrapper'}>
+                            <label htmlFor={'dichotomy'}>
+                                Кількість ділень
+                            </label>
+                            <input className={'intervals-input'}
+                                   name={'dichotomy'}
+                                   value={this.state.dichotomy}
+                                   placeholder={'8'}
+                                   onChange={this.changeHandle}
+                            />
+                            <button onClick={this.calculateDot}>Розрахувати точку</button>
+                        </div>)
+                        }
+                        {this.state.mode === 'newton' && (
+                            <div className={'interval-wrapper'}>
+                                <label htmlFor={'newton'}>
+                                    Точність
+                                </label>
+                                <input className={'intervals-input'}
+                                       name={'newton'}
+                                       value={this.state.newton}
+                                       placeholder={'0.001'}
+                                       onChange={this.changeHandle}
+                                />
+                                <button onClick={this.calculateDot}>Розрахувати точку</button>
+                            </div>)
+                        }
                     </form >
 
                     <div className={'solution'}>
