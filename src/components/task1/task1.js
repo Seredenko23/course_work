@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import Menu from "../menu/Menu";
 import Graph from "../graph/Graph";
 import Wrapper from "../wrapper/wrapper";
-import {closestToZero, findSolutionByIteration, findSolutionByNewton, findSolutionByDichotomy} from "../../service/task1";
+import {
+    closestToZero,
+    findSolutionByIteration,
+    findSolutionByNewton,
+    findSolutionByDichotomy,
+    getAmountAfterDot
+} from "../../service/task1";
 import './task1.css'
 
 class Task1 extends Component {
@@ -13,7 +19,6 @@ class Task1 extends Component {
             max: '5',
             min: '0',
             step: '0.01',
-            dot: '3.69',
             solution: 3.69,
             dichotomy: 8,
             newton: 0.001,
@@ -43,15 +48,12 @@ class Task1 extends Component {
         let {min, max, step} = this.state
         e.preventDefault()
         let data = findSolutionByIteration({min: +min, max: +max}, +step)
-        let dot = closestToZero(data)
-        console.log(dot)
-        this.setState({data: data, dot: dot.X + ''})
+        this.setState({data: data})
     }
 
     calculateDot = (e) => {
         e.preventDefault()
         let num;
-        debugger;
         switch(this.state.mode) {
             case 'iteration':
                 num = closestToZero(this.state.data)
@@ -105,6 +107,11 @@ class Task1 extends Component {
                             />
                         </div>
                         <button type={'submit'}>Створити</button>
+                        {this.state.mode === 'iteration' && (
+                            <div className={'interval-wrapper'}>
+                                <button onClick={this.calculateDot}>Розрахувати точку</button>
+                            </div>)
+                        }
                         {this.state.mode === 'dichotomy' && (
                         <div className={'interval-wrapper'}>
                             <label htmlFor={'dichotomy'}>
@@ -140,7 +147,7 @@ class Task1 extends Component {
                         <span>{this.state.solution}</span>
                     </div>
 
-                    <Graph data={this.state.data} dot={this.state.dot}/>
+                    <Graph data={this.state.data} dot={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}/>
                 </Wrapper>
             </div>
         );

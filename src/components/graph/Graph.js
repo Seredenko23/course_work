@@ -7,6 +7,7 @@ class Graph extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <LineChart width={1400}
                        height={700}
