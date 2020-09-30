@@ -7,7 +7,11 @@ class Menu extends Component {
         return (
             <div className={'main-menu'}>
                 {this.props.buttons.map((button) => {
-                    return (<MenuButton title={button.title} handler={button.handler}/>)
+                    return (<MenuButton title={button.title}
+                                        handler={button.handler}
+                                        mode={button.mode}
+                                        currentMode={this.props.currentMode}
+                    />)
                 })}
             </div>
         );

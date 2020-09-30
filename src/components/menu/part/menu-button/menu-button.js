@@ -3,8 +3,9 @@ import './menu-button.css'
 
 class MenuButton extends Component {
     render() {
+        let {currentMode, mode} = this.props
         return (
-            <button className={'menu-button'}
+            <button className={`menu-button ${currentMode === mode ? 'active' : ''}`}
                     onClick={this.props.handler}
             >
                 <span className={'title'}>

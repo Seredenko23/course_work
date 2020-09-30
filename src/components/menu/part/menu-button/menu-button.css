@@ -13,3 +13,7 @@
     transition: .2s ease;
     background-color: #3e4173;
 }
+
+.active {
+    background-color: #3e4173;
+}

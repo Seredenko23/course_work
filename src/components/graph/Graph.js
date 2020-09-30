@@ -1,17 +1,12 @@
-import React, {Component} from 'react';
+import React, { PureComponent } from 'react';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceDot} from "recharts";
 
-class Graph extends Component {
-    componentDidMount() {
-        console.log(this.props)
-    }
-
+class Graph extends PureComponent {
     render() {
-        console.log(this.props)
         return (
             <LineChart width={1400}
                        height={700}
-                       data={this.props.data.slice(1)}
+                       data={this.props.data}
                        margin={{top: 15, right: 5, left: 20, bottom: 15}}
             >
                 <CartesianGrid strokeDasharray={'3 3'}/>

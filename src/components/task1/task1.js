@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import Menu from "../menu/Menu";
 import Graph from "../graph/Graph";
 import Wrapper from "../wrapper/wrapper";
@@ -11,7 +11,7 @@ import {
 } from "../../service/task1";
 import './task1.css'
 
-class Task1 extends Component {
+class Task1 extends PureComponent {
     constructor() {
         super()
         this.state = {
@@ -27,18 +27,18 @@ class Task1 extends Component {
     }
 
     buttons = [
-            {title: 'Метод итерацій', handler: () => {this.setState({mode: 'iteration'})}},
-            {title: 'Метод дихотомії', handler: () => {this.setState({mode: 'dichotomy'})}},
-            {title: 'Метод Ньютона', handler: () => {this.setState({mode: 'newton'})}}
+            {title: 'Метод итерацій', mode: 'iteration', handler: () => {this.setState({mode: 'iteration'})}},
+            {title: 'Метод дихотомії', mode: 'dichotomy', handler: () => {this.setState({mode: 'dichotomy'})}},
+            {title: 'Метод Ньютона', mode: 'newton', handler: () => {this.setState({mode: 'newton'})}}
         ]
 
     componentDidMount() {
         let data = findSolutionByIteration({min: 0, max: 5}, 0.01)
         this.setState({data: data})
-        console.log(data)
     }
 
     changeHandle = (event) => {
+        event.preventDefault()
         this.setState({
             [event.currentTarget.name]: event.currentTarget.value
         })
@@ -76,7 +76,9 @@ class Task1 extends Component {
         return (
             <div>
                 <Wrapper>
-                    <Menu buttons={this.buttons}/>
+                    <Menu buttons={this.buttons}
+                          currentMode={this.state.mode}
+                    />
 
                     <form className={'intervals'} onSubmit={this.formHandler}>
                         <div className={'interval-wrapper'}>
@@ -147,7 +149,9 @@ class Task1 extends Component {
                         <span>{this.state.solution}</span>
                     </div>
 
-                    <Graph data={this.state.data} dot={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}/>
+                    <Graph data={this.state.data.filter(el =>  !isNaN(el.Y) && isFinite(el.Y))}
+                           dot={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
+                    />
                 </Wrapper>
             </div>
         );
