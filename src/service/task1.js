@@ -20,15 +20,26 @@ export function findSolutionByIteration(interval, n) {
 
 export function findSolutionByDichotomy(interval, n) {
     let {min, max} = interval
+    let result = []
     let center
     for(let i = 0; i < n; i++) {
+        let obj = {'Нижня точка': min, 'Верхня точка': max}
         center = (min + max) / 2
-        calculateEquation(center) * calculateEquation(max) >= 0 ? max = center : min = center
+        obj['Центр'] = center
+        if(calculateEquation(center) * calculateEquation(max) >= 0) {
+            max = center
+            obj['Напрямок'] = 'Лівіше'
+        } else {
+            min = center
+            obj['Напрямок'] = 'Правіше'
+        }
+        result.push(obj)
     }
-    return (min + max) / 2
+    return result
 }
 
 export async function findSolutionByNewton(interval, e) {
+    let result = []
     let x1 = interval.max
     let x2 = undefined
     while(!(Math.abs(Math.abs(x2) - Math.abs(x1)) < e)) {
@@ -36,8 +47,10 @@ export async function findSolutionByNewton(interval, e) {
         let equation = res.queryresult.pods[0].subpods[0].plaintext
         x2 = x1
         x1 = +calculateRootAtZero(equation).toFixed(getAmountAfterDot(e))
+        let obj = {'Рівняння дотичної': equation, 'Точка перетину Оси X': x1}
+        result.push(obj)
     }
-    return x1
+    return result
 }
 
 export function closestToZero(dots) {

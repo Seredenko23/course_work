@@ -1,0 +1,43 @@
+.logger {
+    background-color: #040849;
+    color: white;
+    width: 200px;
+    height: 25px;
+    position: absolute;
+    right: 5%;
+    z-index: 999;
+    top: 20px;
+}
+
+.logger-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 25px;
+    cursor: pointer;
+
+}
+
+.logger-element {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #3e4173;
+    position: relative;
+    width: 100%;
+    background-color: #040849;
+}
+
+.logger-info {
+    padding-left: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.arrow {
+    transition: .2s ease;
+}
+
+.rotated {
+    transform: rotateX(180deg);
+}

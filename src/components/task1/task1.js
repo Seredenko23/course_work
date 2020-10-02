@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React,  {PureComponent} from 'react';
 import Menu from "../menu/Menu";
 import Graph from "../graph/Graph";
 import Wrapper from "../wrapper/wrapper";
@@ -10,6 +10,7 @@ import {
     getAmountAfterDot
 } from "../../service/task1";
 import './task1.css'
+import Logger from "../Logger/logger";
 
 class Task1 extends PureComponent {
     constructor() {
@@ -21,6 +22,7 @@ class Task1 extends PureComponent {
             step: '0.01',
             solution: 3.69,
             dichotomy: 8,
+            log: [],
             newton: 0.001,
             mode: 'iteration'
         }
@@ -60,13 +62,14 @@ class Task1 extends PureComponent {
                 this.setState({solution: num})
                 break
             case 'dichotomy':
-                num = findSolutionByDichotomy({min: +this.state.min, max: +this.state.max}, +this.state.dichotomy)
-                this.setState({solution: num})
+                let log = findSolutionByDichotomy({min: +this.state.min, max: +this.state.max}, +this.state.dichotomy)
+                num = log[log.length - 1]['Центр']
+                this.setState({solution: num, log: log})
                 break
             case 'newton':
                 findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
                     .then((result) => {
-                        this.setState({solution: result})
+                        this.setState({solution: result[result.length - 1]['Точка перетину Оси X'], log: result})
                     })
                 break
         }
@@ -108,10 +111,11 @@ class Task1 extends PureComponent {
                                    onChange={this.changeHandle}
                             />
                         </div>
-                        <button type={'submit'}>Створити</button>
+                        <button className={'intervals-button'} type={'submit'}>Створити</button>
                         {this.state.mode === 'iteration' && (
                             <div className={'interval-wrapper'}>
-                                <button onClick={this.calculateDot}>Розрахувати точку</button>
+                                <button className={'intervals-button'}
+                                        onClick={this.calculateDot}>Розрахувати точку</button>
                             </div>)
                         }
                         {this.state.mode === 'dichotomy' && (
@@ -125,7 +129,8 @@ class Task1 extends PureComponent {
                                    placeholder={'8'}
                                    onChange={this.changeHandle}
                             />
-                            <button onClick={this.calculateDot}>Розрахувати точку</button>
+                            <button className={'intervals-button'}
+                                    onClick={this.calculateDot}>Розрахувати точку</button>
                         </div>)
                         }
                         {this.state.mode === 'newton' && (
@@ -139,7 +144,8 @@ class Task1 extends PureComponent {
                                        placeholder={'0.001'}
                                        onChange={this.changeHandle}
                                 />
-                                <button onClick={this.calculateDot}>Розрахувати точку</button>
+                                <button className={'intervals-button'}
+                                        onClick={this.calculateDot}>Розрахувати точку</button>
                             </div>)
                         }
                     </form >
@@ -149,7 +155,9 @@ class Task1 extends PureComponent {
                         <span>{this.state.solution}</span>
                     </div>
 
-                    <Graph data={this.state.data.filter(el =>  !isNaN(el.Y) && isFinite(el.Y))}
+                    <Logger log={this.state.log}/>
+
+                    <Graph data={this.state.data.filter(el => !isNaN(el.Y) && isFinite(el.Y))}
                            dot={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
                     />
                 </Wrapper>
