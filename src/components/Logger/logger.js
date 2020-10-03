@@ -27,7 +27,6 @@ class Logger extends PureComponent {
                         </div>
                     })
                 }
-
             </div>
         );
     }
