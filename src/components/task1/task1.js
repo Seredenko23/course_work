@@ -7,8 +7,8 @@ import {
     findSolutionByIteration,
     findSolutionByNewton,
     findSolutionByDichotomy,
-    getAmountAfterDot
 } from "../../service/task1";
+import {getAmountAfterDot} from '../../service/utilities'
 import './task1.css'
 import Logger from "../Logger/logger";
 
@@ -158,7 +158,7 @@ class Task1 extends PureComponent {
                     <Logger log={this.state.log}/>
 
                     <Graph data={this.state.data.filter(el => !isNaN(el.Y) && isFinite(el.Y))}
-                           dot={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
+                           dotX={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
                     />
                 </Wrapper>
             </div>

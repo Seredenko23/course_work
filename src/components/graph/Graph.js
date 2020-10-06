@@ -13,7 +13,7 @@ class Graph extends PureComponent {
                 <XAxis dataKey={'X'}/>
                 <YAxis dataKey={'Y'}/>
                 <Tooltip/>
-                <ReferenceDot x={this.props.dot} y={0} r={8} fill="#8884d8" stroke="white" />
+                <ReferenceDot x={this.props.dotX} y={this.props.dotY} r={8} fill="#8884d8" stroke="white" />
                 <Line type={'monotone'}
                       dataKey={'Y'}
                       stroke="#8884d8"

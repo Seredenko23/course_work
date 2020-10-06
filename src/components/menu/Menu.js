@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import './Menu.css'
 import MenuButton from "./part/menu-button/menu-button";
 
-class Menu extends Component {
+class Menu extends PureComponent {
     render() {
         return (
             <div className={'main-menu'}>
