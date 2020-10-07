@@ -6,9 +6,11 @@ function calculateEquation(x) {
 }
 
 export function findSolutionByIteration(interval, n) {
+    let {min, max} = interval
+    if(min > max) throw new Error('Min не може бути більше max')
     let result = []
     let afterDot = getAmountAfterDot(n)
-    for(let i = interval.min; i <= interval.max; i += n) {
+    for(let i = min; i <= max; i += n) {
         let j = +i.toFixed(afterDot)
         result.push({'Y': calculateEquation(j), 'X': j})
     }
@@ -17,6 +19,7 @@ export function findSolutionByIteration(interval, n) {
 
 export function findSolutionByDichotomy(interval, n) {
     let {min, max} = interval
+    if(min > max) throw new Error('Min не може бути більше max')
     let result = []
     let center
     for(let i = 0; i < n; i++) {
@@ -37,6 +40,7 @@ export function findSolutionByDichotomy(interval, n) {
 
 export async function findSolutionByNewton(interval, e) {
     let result = []
+    if(interval.min > interval.max) throw new Error('Min не може бути більше max')
     let x1 = interval.max
     let x2 = undefined
     while(!(Math.abs(Math.abs(x2) - Math.abs(x1)) < e)) {

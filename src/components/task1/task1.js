@@ -11,6 +11,7 @@ import {
 import {getAmountAfterDot} from '../../service/utilities'
 import './task1.css'
 import Logger from "../Logger/logger";
+import {toast} from "react-toastify";
 
 class Task1 extends PureComponent {
     constructor() {
@@ -47,31 +48,44 @@ class Task1 extends PureComponent {
     };
 
     formHandler = (e) => {
-        let {min, max, step} = this.state
-        e.preventDefault()
-        let data = findSolutionByIteration({min: +min, max: +max}, +step)
-        this.setState({data: data})
+        try {
+            let {min, max, step} = this.state
+            e.preventDefault()
+            let data = findSolutionByIteration({min: +min, max: +max}, +step)
+            this.setState({data: data})
+        } catch (e) {
+            toast.error(e.message)
+        }
     }
 
     calculateDot = (e) => {
         e.preventDefault()
         let num;
-        switch(this.state.mode) {
-            case 'iteration':
-                num = closestToZero(this.state.data)
-                this.setState({solution: num})
-                break
-            case 'dichotomy':
-                let log = findSolutionByDichotomy({min: +this.state.min, max: +this.state.max}, +this.state.dichotomy)
-                num = log[log.length - 1]['Центр']
-                this.setState({solution: num, log: log})
-                break
-            case 'newton':
-                findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
-                    .then((result) => {
-                        this.setState({solution: result[result.length - 1]['Точка перетину Оси X'], log: result})
-                    })
-                break
+        try {
+            switch(this.state.mode) {
+                case 'iteration':
+                    num = closestToZero(this.state.data)
+                    this.setState({solution: num})
+                    break
+                case 'dichotomy':
+                    let log = findSolutionByDichotomy({
+                        min: +this.state.min,
+                        max: +this.state.max
+                    }, +this.state.dichotomy)
+                    num = log[log.length - 1]['Центр']
+                    this.setState({solution: num, log: log})
+                    break
+                case 'newton':
+                    findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
+                        .then((result) => {
+                            this.setState({solution: result[result.length - 1]['Точка перетину Оси X'], log: result})
+                        })
+                    break
+                default:
+                    break
+            }
+        } catch(e) {
+            toast.error(e.message)
         }
     }
 

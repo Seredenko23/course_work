@@ -19,12 +19,13 @@ class Task2 extends PureComponent {
             max: '15',
             min: '0',
             precision: '0.1',
-            solution: {X: 0, Y: 0}
+            solution: {X: 0, Y: 0},
+            mode: 'task2'
         }
     }
 
     buttons = [
-        {title: 'Метод итерацій', mode: 'iteration', handler: () => {this.setState({mode: 'iteration'})}},
+        {title: 'Task2', mode: 'task2', handler: () => {},}
     ]
 
     componentDidMount() {
@@ -51,7 +52,6 @@ class Task2 extends PureComponent {
     }
 
     render() {
-        console.log(this.state)
         let dataset = JSON.parse(this.state.dataset)
         return (
             <div>
