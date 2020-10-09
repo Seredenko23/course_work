@@ -3,10 +3,10 @@ import Menu from "../menu/Menu";
 import Graph from "../graph/Graph";
 import Wrapper from "../wrapper/wrapper";
 import {
-    closestToZero,
+    calculateEquation,
     findSolutionByIteration,
     findSolutionByNewton,
-    findSolutionByDichotomy,
+    findSolutionByDichotomy, generateGraph,
 } from "../../service/task1";
 import {getAmountAfterDot} from '../../service/utilities'
 import './task1.css'
@@ -36,8 +36,8 @@ class Task1 extends PureComponent {
         ]
 
     componentDidMount() {
-        let data = findSolutionByIteration({min: 0, max: 5}, 0.01)
-        this.setState({data: data})
+        let data = generateGraph({min: 0, max: 5}, 0.01, calculateEquation)
+        this.setState({data: data.filter(el => !isNaN(el.Y) && isFinite(el.Y))})
     }
 
     changeHandle = (event) => {
@@ -51,8 +51,8 @@ class Task1 extends PureComponent {
         try {
             let {min, max, step} = this.state
             e.preventDefault()
-            let data = findSolutionByIteration({min: +min, max: +max}, +step)
-            this.setState({data: data})
+            let data = generateGraph({min: +min, max: +max}, +step, calculateEquation)
+            this.setState({data: data.filter(el => !isNaN(el.Y) && isFinite(el.Y))})
         } catch (e) {
             toast.error(e.message)
         }
@@ -64,7 +64,7 @@ class Task1 extends PureComponent {
         try {
             switch(this.state.mode) {
                 case 'iteration':
-                    num = closestToZero(this.state.data)
+                    num = findSolutionByIteration(this.state.data)
                     this.setState({solution: num})
                     break
                 case 'dichotomy':
@@ -171,8 +171,9 @@ class Task1 extends PureComponent {
 
                     <Logger log={this.state.log}/>
 
-                    <Graph data={this.state.data.filter(el => !isNaN(el.Y) && isFinite(el.Y))}
+                    <Graph data={this.state.data}
                            dotX={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
+                           dotY={0}
                     />
                 </Wrapper>
             </div>

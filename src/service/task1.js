@@ -1,18 +1,18 @@
 import {query, WOLFRAM_URL} from "../config/config";
 import {getAmountAfterDot} from "./utilities";
 
-function calculateEquation(x) {
+export function calculateEquation(x) {
     return Math.log(x) - Math.atan(x)
 }
 
-export function findSolutionByIteration(interval, n) {
+export function generateGraph(interval, n, equation) {
     let {min, max} = interval
     if(min > max) throw new Error('Min не може бути більше max')
     let result = []
     let afterDot = getAmountAfterDot(n)
     for(let i = min; i <= max; i += n) {
         let j = +i.toFixed(afterDot)
-        result.push({'Y': calculateEquation(j), 'X': j})
+        result.push({'Y': equation(j), 'X': j})
     }
     return result
 }
@@ -54,7 +54,7 @@ export async function findSolutionByNewton(interval, e) {
     return result
 }
 
-export function closestToZero(dots) {
+export function findSolutionByIteration(dots) {
     let closest = dots[0]
     dots.forEach((dot) => {
         if(Math.abs(closest.Y) > Math.abs(dot.Y)) {

@@ -12,7 +12,7 @@ class Logger extends PureComponent {
     }
 
     render() {
-        console.log(this.props.log)
+        console.log(this.props.log, 'rerender')
         return (
             <div className={'logger'}>
                 <div className={'logger-title'} onClick={this.clickHandler}>

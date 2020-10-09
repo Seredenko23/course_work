@@ -30,7 +30,7 @@ class Task2 extends PureComponent {
 
     componentDidMount() {
         let data = calculateEquation({min: 0, max: 15}, JSON.parse(this.state.dataset), +this.state.precision)
-        this.setState({data: data.data, solution: {X: data.correctX, Y: data.correctY}})
+        this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
     }
 
     changeHandle = (event) => {
@@ -43,7 +43,7 @@ class Task2 extends PureComponent {
     formHandler = (event) => {
         event.preventDefault()
         let data = calculateEquation({min: +this.state.min, max: +this.state.max}, JSON.parse(this.state.dataset), +this.state.precision)
-        this.setState({data: data.data, solution: {X: data.correctX, Y: data.correctY}})
+        this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
     }
 
     changeHandler = (event) => {
@@ -121,7 +121,7 @@ class Task2 extends PureComponent {
 
                     {/*<Logger log={this.state.log}/>*/}
 
-                    <Graph data={this.state.data.filter(el => !isNaN(el.Y) && isFinite(el.Y))}
+                    <Graph data={this.state.data}
                            dotX={+this.state.solution.X.toFixed(getAmountAfterDot(this.state.precision))}
                            dotY={this.state.solution.Y}
                     />
