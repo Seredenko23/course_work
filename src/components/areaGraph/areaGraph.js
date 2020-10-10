@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {CartesianGrid, Area, AreaChart, ReferenceDot, Tooltip, XAxis, YAxis, Line} from "recharts";
+import {CartesianGrid, Area, AreaChart, Tooltip, XAxis, YAxis} from "recharts";
 
 class AreaGraph extends Component {
     render() {

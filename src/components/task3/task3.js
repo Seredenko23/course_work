@@ -82,7 +82,8 @@ class Task3 extends Component {
                     this.setState({solution: num})
                     break
                 case 'monteCarlo':
-                    num = monteCarlo({min: +min, max: +max}, {minY: +minY, maxY: +maxY}, +iterations)
+                    num = monteCarlo({xMin: +min, xMax: +max}, {yMin: +minY, yMax: +maxY}, +iterations)
+                    console.log(num)
                     this.setState({solution: num})
                     break
                 default:
@@ -134,7 +135,7 @@ class Task3 extends Component {
                             <>
                                 <div className={'interval-wrapper'}>
                                     <label htmlFor={'maxY'}>
-                                        Мінімальне значення Y
+                                        Максимальне значення Y
                                     </label>
                                     <input className={'intervals-input'}
                                            name={'maxY'}
@@ -145,7 +146,7 @@ class Task3 extends Component {
                                 </div>
                                 <div className={'interval-wrapper'}>
                                     <label htmlFor={'minY'}>
-                                        Мінімальне значення X
+                                        Мінімальне значення Y
                                     </label>
                                     <input className={'intervals-input'}
                                            name={'minY'}
@@ -167,8 +168,6 @@ class Task3 extends Component {
                         <span>X = </span>
                         <span>{this.state.solution}</span>
                     </div>
-
-                    <Logger log={this.state.log}/>
 
                     <AreaGraph data={this.state.data}/>
                 </Wrapper>

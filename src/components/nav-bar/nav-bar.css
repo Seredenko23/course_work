@@ -1,0 +1,25 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+    justify-content: flex-end;
+    background-color: #24026c;
+}
+
+.nav-link {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin: 0 5px;
+    padding: 0 15px;
+}
+
+.nav-link:hover {
+    background-color: #170142;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
