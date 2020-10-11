@@ -79,6 +79,8 @@ class Task1 extends PureComponent {
                     findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
                         .then((result) => {
                             this.setState({solution: result[result.length - 1]['Точка перетину Оси X'], log: result})
+                        }).catch(e => {
+                            toast.error(e.message)
                         })
                     break
                 default:

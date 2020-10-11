@@ -8,6 +8,7 @@ export function calculateEquation(x) {
 export function generateGraph(interval, n, equation) {
     let {min, max} = interval
     if(min > max) throw new Error('Min не може бути більше max')
+    if(n <= 0) throw new Error('Крок не може бути менше 0')
     let result = []
     let afterDot = getAmountAfterDot(n)
     for(let i = min; i <= max; i += n) {
@@ -20,6 +21,7 @@ export function generateGraph(interval, n, equation) {
 export function findSolutionByDichotomy(interval, n) {
     let {min, max} = interval
     if(min > max) throw new Error('Min не може бути більше max')
+    if(n <= 0) throw new Error('Крок не може бути менше 0')
     let result = []
     let center
     for(let i = 0; i < n; i++) {
@@ -41,6 +43,7 @@ export function findSolutionByDichotomy(interval, n) {
 export async function findSolutionByNewton(interval, e) {
     let result = []
     if(interval.min > interval.max) throw new Error('Min не може бути більше max')
+    if(e <= 0) throw new Error('Точність не може бути менше 0')
     let x1 = interval.max
     let x2 = undefined
     while(!(Math.abs(Math.abs(x2) - Math.abs(x1)) < e)) {

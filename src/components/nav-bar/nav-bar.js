@@ -44,7 +44,7 @@ class NavBar extends Component {
                             <Task3/>
                         </Route>
                         <Route path={'/'}>
-                            <Redirect to={'log-in'}/>
+                            <Redirect to={'task1'}/>
                         </Route>
                     </Switch>
                 </BrowserRouter>

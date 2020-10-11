@@ -19,8 +19,9 @@ function calculateRightEquation(d, b, t) {
 
 export function calculateEquation(interval, data, precision) {
     let {min, max} = interval
+    if(min > max) throw new Error('Min не може бути більше max')
+    if(precision <= 0) throw new Error('Точність не може бути менше 0')
     let rightPart = +calculateRightEquation(...Object.values(data))
-    console.log(rightPart)
     let lowest = Infinity
     let result = { data: [], correctY: 0, correctX: 0}
     for(let i = min; i < max; i += precision) {

@@ -9,6 +9,7 @@ import Logger from "../Logger/logger";
 import Graph from "../graph/Graph";
 import {getAmountAfterDot} from "../../service/utilities";
 import './task2.css'
+import {toast} from "react-toastify";
 
 class Task2 extends PureComponent {
     constructor() {
@@ -25,12 +26,16 @@ class Task2 extends PureComponent {
     }
 
     buttons = [
-        {title: 'Task2', mode: 'task2', handler: () => {},}
+        {title: 'Task 2', mode: 'task2', handler: () => {},}
     ]
 
     componentDidMount() {
-        let data = calculateEquation({min: 0, max: 15}, JSON.parse(this.state.dataset), +this.state.precision)
-        this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
+        try {
+            let data = calculateEquation({min: 0, max: 15}, JSON.parse(this.state.dataset), +this.state.precision)
+            this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
+        } catch (e) {
+            toast.error(e.message)
+        }
     }
 
     changeHandle = (event) => {
@@ -42,8 +47,12 @@ class Task2 extends PureComponent {
 
     formHandler = (event) => {
         event.preventDefault()
-        let data = calculateEquation({min: +this.state.min, max: +this.state.max}, JSON.parse(this.state.dataset), +this.state.precision)
-        this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
+        try {
+            let data = calculateEquation({min: +this.state.min, max: +this.state.max}, JSON.parse(this.state.dataset), +this.state.precision)
+            this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
+        } catch (e) {
+            toast.error(e.message)
+        }
     }
 
     changeHandler = (event) => {
