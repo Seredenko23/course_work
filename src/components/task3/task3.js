@@ -13,8 +13,8 @@ import {
 import {toast} from "react-toastify";
 import Wrapper from "../wrapper/wrapper";
 import Menu from "../menu/Menu";
-import Logger from "../Logger/logger";
 import AreaGraph from "../areaGraph/areaGraph";
+import IntegralTable from "../integralTable/integralTable";
 
 class Task3 extends Component {
     constructor() {
@@ -37,7 +37,7 @@ class Task3 extends Component {
         {title: 'Метод Трапецій', mode: 'trap', handler: () => {this.setState({mode: 'trap'})}},
         {title: 'Метод Сімпсона', mode: 'simpson', handler: () => {this.setState({mode: 'simpson'})}},
         {title: 'Метод Монте-Карло', mode: 'monteCarlo', handler: () => {this.setState({mode: 'monteCarlo'})}},
-
+        {title: 'Таблиця результатів', mode: 'table', handler: () => {this.setState({mode: 'table'})}},
     ]
 
     componentDidMount() {
@@ -95,81 +95,89 @@ class Task3 extends Component {
     }
 
     render() {
+        let {min, max, maxY, minY} = this.state
         return (
             <div>
                 <Wrapper>
                     <Menu buttons={this.buttons}
                           currentMode={this.state.mode}
                     />
-
-                    <form className={'intervals'} onSubmit={this.formHandler}>
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'min'}>Min</label>
-                            <input className={'intervals-input'}
-                                   name={'min'}
-                                   value={this.state.min}
-                                   placeholder={'0'}
-                                   onChange={this.changeHandle}
-                            />
-                        </div>
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'max'}>Max</label>
-                            <input className={'intervals-input'}
-                                   name={'max'}
-                                   value={this.state.max}
-                                   placeholder={'5'}
-                                   onChange={this.changeHandle}
-                            />
-                        </div>
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'step'}>Iterations</label>
-                            <input className={'intervals-input'}
-                                   name={'iterations'}
-                                   value={this.state.iterations}
-                                   placeholder={'10'}
-                                   onChange={this.changeHandle}
-                            />
-                        </div>
-                        <button className={'intervals-button'} type={'submit'}>Створити</button>
-                        {this.state.mode === 'monteCarlo' && (
-                            <>
+                    {this.state.mode !== 'table' ?
+                        (
+                        <>
+                            <form className={'intervals'} onSubmit={this.formHandler}>
                                 <div className={'interval-wrapper'}>
-                                    <label htmlFor={'maxY'}>
-                                        Максимальне значення Y
-                                    </label>
+                                    <label htmlFor={'min'}>Min</label>
                                     <input className={'intervals-input'}
-                                           name={'maxY'}
-                                           value={this.state.minY}
-                                           placeholder={'1'}
-                                           onChange={this.changeHandle}
-                                    />
-                                </div>
-                                <div className={'interval-wrapper'}>
-                                    <label htmlFor={'minY'}>
-                                        Мінімальне значення Y
-                                    </label>
-                                    <input className={'intervals-input'}
-                                           name={'minY'}
-                                           value={this.state.maxY}
+                                           name={'min'}
+                                           value={this.state.min}
                                            placeholder={'0'}
                                            onChange={this.changeHandle}
                                     />
                                 </div>
-                            </>)}
-                        <button className={'intervals-button'}
-                                type={'button'}
-                                onClick={this.calculateArea}
-                        >
-                            Розрахувати
-                        </button>
-                    </form >
+                                <div className={'interval-wrapper'}>
+                                    <label htmlFor={'max'}>Max</label>
+                                    <input className={'intervals-input'}
+                                           name={'max'}
+                                           value={this.state.max}
+                                           placeholder={'5'}
+                                           onChange={this.changeHandle}
+                                    />
+                                </div>
+                                <div className={'interval-wrapper'}>
+                                    <label htmlFor={'step'}>Iterations</label>
+                                    <input className={'intervals-input'}
+                                           name={'iterations'}
+                                           value={this.state.iterations}
+                                           placeholder={'10'}
+                                           onChange={this.changeHandle}
+                                    />
+                                </div>
+                                <button className={'intervals-button'} type={'submit'}>Створити</button>
+                                {this.state.mode === 'monteCarlo' && (
+                                    <>
+                                        <div className={'interval-wrapper'}>
+                                            <label htmlFor={'maxY'}>
+                                                Максимальне значення Y
+                                            </label>
+                                            <input className={'intervals-input'}
+                                                   name={'maxY'}
+                                                   value={this.state.minY}
+                                                   placeholder={'1'}
+                                                   onChange={this.changeHandle}
+                                            />
+                                        </div>
+                                        <div className={'interval-wrapper'}>
+                                            <label htmlFor={'minY'}>
+                                                Мінімальне значення Y
+                                            </label>
+                                            <input className={'intervals-input'}
+                                                   name={'minY'}
+                                                   value={this.state.maxY}
+                                                   placeholder={'0'}
+                                                   onChange={this.changeHandle}
+                                            />
+                                        </div>
+                                    </>)}
+                                <button className={'intervals-button'}
+                                        type={'button'}
+                                        onClick={this.calculateArea}
+                                >
+                                    Розрахувати
+                                </button>
+                            </form >
 
-                    <div className={'solution'}>
-                        <span>X = </span>
-                        <span>{this.state.solution}</span>
-                    </div>
+                            <div className={'solution'}>
+                                <span>X = </span>
+                                <span>{this.state.solution}</span>
+                            </div>
 
-                    <AreaGraph data={this.state.data}/>
+                            <AreaGraph data={this.state.data}/>
+                        </>
+                        ) : (
+                            <IntegralTable min={+min} max={+max} minY={+minY} maxY={+maxY}/>
+                        )
+                    }
                 </Wrapper>
             </div>
         );

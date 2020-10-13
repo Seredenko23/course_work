@@ -41,6 +41,7 @@ export function simpson(interval, iters) {
 }
 
 export function monteCarlo(interval, yInterval, amountOfDots) {
+    console.log(interval, yInterval)
     let {xMax, xMin} = interval
     let {yMax, yMin} = yInterval
     if(xMin > xMax || yMin > yMax) throw new Error('Min не може бути більше max')
