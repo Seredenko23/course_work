@@ -7,7 +7,8 @@ class Menu extends PureComponent {
         return (
             <div className={'main-menu'}>
                 {this.props.buttons.map((button) => {
-                    return (<MenuButton title={button.title}
+                    return (<MenuButton key={button.title}
+                                        title={button.title}
                                         handler={button.handler}
                                         mode={button.mode}
                                         currentMode={this.props.currentMode}

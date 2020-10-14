@@ -21,7 +21,7 @@ class Task3 extends Component {
         super()
         this.state = {
             data: [],
-            max: '5',
+            max: '3.14',
             min: '0',
             maxY: '1',
             minY: '0',
@@ -41,7 +41,7 @@ class Task3 extends Component {
     ]
 
     componentDidMount() {
-        let data = generateGraph({min: 0, max: 5}, 0.01, equation)
+        let data = generateGraph({min: 0, max: 3.14}, 0.01, equation)
         this.setState({data: data.filter(el => !isNaN(el.Y) && isFinite(el.Y))})
     }
 

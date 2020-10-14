@@ -1,0 +1,13 @@
+table, th, td {
+    border: 1px solid #d4d4d4;
+}
+
+.integral-table {
+    width: 100%;
+    margin: 0 10px;
+    border-collapse: collapse;
+}
+
+.table-cell {
+    text-align: center;
+}
