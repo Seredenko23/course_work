@@ -1,0 +1,13 @@
+.tables {
+    width: 100%;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-header {
+    color: #040849;
+    font-size: 24px;
+}

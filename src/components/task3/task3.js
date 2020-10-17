@@ -175,7 +175,30 @@ class Task3 extends Component {
                             <AreaGraph data={this.state.data}/>
                         </>
                         ) : (
-                            <IntegralTable min={+min} max={+max} minY={+minY} maxY={+maxY}/>
+                            <div className={"tables"}>
+                                <span className={"table-header"}><b>Метод прямокутників</b></span>
+                                <IntegralTable title={'Метод прямокутників'}
+                                             analiticValue={0.716}
+                                             func={(iters) => rectangle({min: +min, max: +max}, iters)}
+                                />
+                                <span className={"table-header"}><b>Метод Трапецій</b></span>
+                                <IntegralTable title={'Метод Трапецій'}
+                                               analiticValue={0.716}
+                                               func={(iters) => trap({min: +min, max: +max}, iters)}
+                                />
+                                <span className={"table-header"}><b>Метод Сімпсона</b></span>
+                                <IntegralTable title={'Метод Сімпсона'}
+                                               analiticValue={0.716}
+                                               func={(iters) => simpson({min: +min, max: +max}, iters)}
+                                />
+                                <span className={"table-header"}><b>Метод Монте-Карло</b></span>
+                                <IntegralTable title={'Метод Монте-Карло'}
+                                               analiticValue={0.716}
+                                               func={(iters) => monteCarlo({xMax: +max, xMin: +min}, {yMax: +maxY, yMin: +minY}, iters)}
+                                />
+                            </div>
+
+
                         )
                     }
                 </Wrapper>

@@ -4,10 +4,11 @@ table, th, td {
 
 .integral-table {
     width: 100%;
-    margin: 0 10px;
+    margin: 10px;
     border-collapse: collapse;
 }
 
 .table-cell {
+    width: 20%;
     text-align: center;
 }

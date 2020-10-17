@@ -1,5 +1,6 @@
 import {query, WOLFRAM_URL} from "../config/config";
 import {getAmountAfterDot} from "./utilities";
+import {equation} from "./task3";
 
 export function calculateEquation(x) {
     return Math.log(x) - Math.atan(x)
@@ -21,6 +22,7 @@ export function generateGraph(interval, n, equation) {
 export function findSolutionByDichotomy(interval, n) {
     let {min, max} = interval
     if(min > max) throw new Error('Min не може бути більше max')
+    if(equation(min) * equation(max) > 0) return null
     if(n <= 0) throw new Error('Крок не може бути менше 0')
     let result = []
     let center
@@ -54,17 +56,21 @@ export async function findSolutionByNewton(interval, e) {
         let obj = {'Рівняння дотичної': equation, 'Точка перетину Оси X': x1}
         result.push(obj)
     }
+    if( x1 < interval.min || x1 > interval.max ) return null
     return result
 }
 
 export function findSolutionByIteration(dots) {
-    let closest = dots[0]
+    let closest = [0, 0]
+    let prevDot = dots[0]
     dots.forEach((dot) => {
-        if(Math.abs(closest.Y) > Math.abs(dot.Y)) {
-            closest = dot
+        if(prevDot.Y * dot.Y <= 0) {
+            closest[0] = prevDot.X
+            closest[1]++
         }
+        prevDot = dot
     })
-    return closest.X
+    return closest
 }
 
 export async function getInfo(input) {

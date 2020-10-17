@@ -22,6 +22,7 @@ class Task1 extends PureComponent {
             min: '0',
             step: '0.01',
             solution: 3.69,
+            amount: 1,
             dichotomy: 8,
             log: [],
             newton: 0.001,
@@ -65,20 +66,28 @@ class Task1 extends PureComponent {
             switch(this.state.mode) {
                 case 'iteration':
                     num = findSolutionByIteration(this.state.data)
-                    this.setState({solution: num})
+                    this.setState({solution: num[0], amount: num[0]})
                     break
                 case 'dichotomy':
                     let log = findSolutionByDichotomy({
                         min: +this.state.min,
                         max: +this.state.max
                     }, +this.state.dichotomy)
-                    num = log[log.length - 1]['Центр']
-                    this.setState({solution: num, log: log})
+                    if (log === null) {
+                        this.setState({solution: 0, log: [], amount: 0})
+                    } else {
+                        num = log[log.length - 1]['Центр']
+                        this.setState({solution: num, log: log, amount: 1})
+                    }
                     break
                 case 'newton':
                     findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
                         .then((result) => {
-                            this.setState({solution: result[result.length - 1]['Точка перетину Оси X'], log: result})
+                            if (result === null) {
+                                this.setState({solution: 0, log: [], amount: 0})
+                            } else {
+                                this.setState({solution: result[result.length - 1]['Точка перетину Оси X'], log: result, amount: 1})
+                            }
                         }).catch(e => {
                             toast.error(e.message)
                         })
@@ -167,8 +176,14 @@ class Task1 extends PureComponent {
                     </form >
 
                     <div className={'solution'}>
-                        <span>X = </span>
-                        <span>{this.state.solution}</span>
+                        <div>
+                            <span>X = </span>
+                            <span>{this.state.solution}</span>
+                        </div>
+                        <div>
+                            <span>Знайдено коренів </span>
+                            <span>{this.state.amount}</span>
+                        </div>
                     </div>
 
                     <Logger log={this.state.log}/>
