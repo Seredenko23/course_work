@@ -1,4 +1,4 @@
-import React,  {PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import Menu from "../menu/Menu";
 import Graph from "../graph/Graph";
 import Wrapper from "../wrapper/wrapper";
@@ -9,9 +9,11 @@ import {
     findSolutionByDichotomy, generateGraph,
 } from "../../service/task1";
 import {getAmountAfterDot} from '../../service/utilities'
-import './task1.css'
 import Logger from "../Logger/logger";
 import {toast} from "react-toastify";
+import GraphTable from "../graphTable/graphTable";
+import '../../css/table.css'
+import './task1.css'
 
 class Task1 extends PureComponent {
     constructor() {
@@ -33,7 +35,8 @@ class Task1 extends PureComponent {
     buttons = [
             {title: 'Метод итерацій', mode: 'iteration', handler: () => {this.setState({mode: 'iteration'})}},
             {title: 'Метод дихотомії', mode: 'dichotomy', handler: () => {this.setState({mode: 'dichotomy'})}},
-            {title: 'Метод Ньютона', mode: 'newton', handler: () => {this.setState({mode: 'newton'})}}
+            {title: 'Метод Ньютона', mode: 'newton', handler: () => {this.setState({mode: 'newton'})}},
+            {title: 'Таблиці', mode: 'table', handler: () => {this.setState({mode: 'table'})}}
         ]
 
     componentDidMount() {
@@ -107,91 +110,100 @@ class Task1 extends PureComponent {
                     <Menu buttons={this.buttons}
                           currentMode={this.state.mode}
                     />
+                    { this.state.mode === 'table' ? (
+                        <div className={'tables'}>
+                            <span className={'table-header'}><b>Метод Ітерацій</b></span>
+                            <GraphTable min={+this.state.min} max={+this.state.max} />
+                        </div>
 
-                    <form className={'intervals'} onSubmit={this.formHandler}>
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'min'}>Min</label>
-                            <input className={'intervals-input'}
-                                   name={'min'}
-                                   value={this.state.min}
-                                   placeholder={'0'}
-                                   onChange={this.changeHandle}
-                            />
-                        </div>
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'max'}>Max</label>
-                            <input className={'intervals-input'}
-                                   name={'max'}
-                                   value={this.state.max}
-                                   placeholder={'5'}
-                                   onChange={this.changeHandle}
-                            />
-                        </div>
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'step'}>Step</label>
-                            <input className={'intervals-input'}
-                                   name={'step'}
-                                   value={this.state.step}
-                                   placeholder={'0.01'}
-                                   onChange={this.changeHandle}
-                            />
-                        </div>
-                        <button className={'intervals-button'} type={'submit'}>Створити</button>
-                        {this.state.mode === 'iteration' && (
+                    ) : (
+                        <>
+                        <form className={'intervals'} onSubmit={this.formHandler}>
                             <div className={'interval-wrapper'}>
-                                <button className={'intervals-button'}
-                                        onClick={this.calculateDot}>Розрахувати точку</button>
-                            </div>)
-                        }
-                        {this.state.mode === 'dichotomy' && (
-                        <div className={'interval-wrapper'}>
-                            <label htmlFor={'dichotomy'}>
-                                Кількість ділень
-                            </label>
-                            <input className={'intervals-input'}
-                                   name={'dichotomy'}
-                                   value={this.state.dichotomy}
-                                   placeholder={'8'}
-                                   onChange={this.changeHandle}
-                            />
-                            <button className={'intervals-button'}
-                                    onClick={this.calculateDot}>Розрахувати точку</button>
-                        </div>)
-                        }
-                        {this.state.mode === 'newton' && (
-                            <div className={'interval-wrapper'}>
-                                <label htmlFor={'newton'}>
-                                    Точність
-                                </label>
+                                <label htmlFor={'min'}>Min</label>
                                 <input className={'intervals-input'}
-                                       name={'newton'}
-                                       value={this.state.newton}
-                                       placeholder={'0.001'}
+                                       name={'min'}
+                                       value={this.state.min}
+                                       placeholder={'0'}
                                        onChange={this.changeHandle}
                                 />
-                                <button className={'intervals-button'}
-                                        onClick={this.calculateDot}>Розрахувати точку</button>
-                            </div>)
-                        }
-                    </form >
+                            </div>
+                            <div className={'interval-wrapper'}>
+                                <label htmlFor={'max'}>Max</label>
+                                <input className={'intervals-input'}
+                                       name={'max'}
+                                       value={this.state.max}
+                                       placeholder={'5'}
+                                       onChange={this.changeHandle}
+                                />
+                            </div>
+                            <div className={'interval-wrapper'}>
+                                <label htmlFor={'step'}>Step</label>
+                                <input className={'intervals-input'}
+                                       name={'step'}
+                                       value={this.state.step}
+                                       placeholder={'0.01'}
+                                       onChange={this.changeHandle}
+                                />
+                            </div>
+                            <button className={'intervals-button'} type={'submit'}>Створити</button>
+                            { this.state.mode === 'iteration' && (
+                                <div className={'interval-wrapper'}>
+                                    <button className={'intervals-button'}
+                                            onClick={this.calculateDot}>Розрахувати точку</button>
+                                </div>)
+                            }
+                            { this.state.mode === 'dichotomy' && (
+                                <div className={'interval-wrapper'}>
+                                    <label htmlFor={'dichotomy'}>
+                                        Кількість ділень
+                                    </label>
+                                    <input className={'intervals-input'}
+                                           name={'dichotomy'}
+                                           value={this.state.dichotomy}
+                                           placeholder={'8'}
+                                           onChange={this.changeHandle}
+                                    />
+                                    <button className={'intervals-button'}
+                                            onClick={this.calculateDot}>Розрахувати точку</button>
+                                </div>)
+                            }
+                            { this.state.mode === 'newton' && (
+                                <div className={'interval-wrapper'}>
+                                    <label htmlFor={'newton'}>
+                                        Точність
+                                    </label>
+                                    <input className={'intervals-input'}
+                                           name={'newton'}
+                                           value={this.state.newton}
+                                           placeholder={'0.001'}
+                                           onChange={this.changeHandle}
+                                    />
+                                    <button className={'intervals-button'}
+                                            onClick={this.calculateDot}>Розрахувати точку</button>
+                                </div>)
+                            }
+                        </form>
 
-                    <div className={'solution'}>
-                        <div>
-                            <span>X = </span>
-                            <span>{this.state.solution}</span>
+                        <div className={'solution'}>
+                            <div>
+                                <span>X = </span>
+                                <span>{this.state.solution}</span>
+                            </div>
+                            <div>
+                                <span>Знайдено коренів </span>
+                                <span>{this.state.amount}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span>Знайдено коренів </span>
-                            <span>{this.state.amount}</span>
-                        </div>
-                    </div>
 
-                    <Logger log={this.state.log}/>
+                        <Logger log={this.state.log} />
 
-                    <Graph data={this.state.data}
-                           dotX={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
-                           dotY={0}
-                    />
+                        <Graph data={this.state.data}
+                            dotX={+this.state.solution.toFixed(getAmountAfterDot(this.state.step))}
+                            dotY={0}
+                        />
+                        </>
+                    )}
                 </Wrapper>
             </div>
         );

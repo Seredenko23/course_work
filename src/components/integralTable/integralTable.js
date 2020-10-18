@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import './integralTable.css'
+import '../../css/table.css'
 
 class IntegralTable extends Component {
     values = [10, 20, 50, 100, 1000]
     render() {
         return (
-            <table className={'integral-table'}>
+            <table className={'graph-table'}>
                 <thead>
                     <tr>
                         <th>Кількість ітерацій</th>
@@ -17,13 +17,13 @@ class IntegralTable extends Component {
                 </thead>
                 <tbody>
                     {this.values.map(value => {
-                        let num = this.props.func(value)
+                        let num = +this.props.func(value).toFixed(4)
                         return (
                             <tr key={value}>
                                 <td className={'table-cell'}>{value}</td>
                                 <td className={'table-cell'}>{this.props.analiticValue}</td>
                                 <td className={'table-cell'}>{num}</td>
-                                <td className={'table-cell'}>{Math.abs(this.props.analiticValue - num)}</td>
+                                <td className={'table-cell'}>{Math.abs(this.props.analiticValue - num).toFixed(4)}</td>
                                 <td className={'table-cell'}>{Math.abs(this.props.analiticValue - num)/this.props.analiticValue * 100} %</td>
                             </tr>
                         )

@@ -1,5 +1,6 @@
 .menu-button {
     display: flex;
+    justify-content: center;
     outline: none;
     border: none;
     padding: 10px 15px;

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './task3.css'
+import '../../css/table.css'
 import {
     generateGraph,
 } from "../../service/task1";
