@@ -36,7 +36,6 @@ class Task3 extends Component {
     buttons = [
         {title: 'Метод Прямокутників', mode: 'rectangle', handler: () => {this.setState({mode: 'rectangle'})}},
         {title: 'Метод Трапецій', mode: 'trap', handler: () => {this.setState({mode: 'trap'})}},
-        {title: 'Метод Сімпсона', mode: 'simpson', handler: () => {this.setState({mode: 'simpson'})}},
         {title: 'Метод Монте-Карло', mode: 'monteCarlo', handler: () => {this.setState({mode: 'monteCarlo'})}},
         {title: 'Таблиця результатів', mode: 'table', handler: () => {this.setState({mode: 'table'})}},
     ]
@@ -187,19 +186,12 @@ class Task3 extends Component {
                                                analiticValue={0.716}
                                                func={(iters) => trap({min: +min, max: +max}, iters)}
                                 />
-                                <span className={"table-header"}><b>Метод Сімпсона</b></span>
-                                <IntegralTable title={'Метод Сімпсона'}
-                                               analiticValue={0.716}
-                                               func={(iters) => simpson({min: +min, max: +max}, iters)}
-                                />
                                 <span className={"table-header"}><b>Метод Монте-Карло</b></span>
                                 <IntegralTable title={'Метод Монте-Карло'}
                                                analiticValue={0.716}
                                                func={(iters) => monteCarlo({xMax: +max, xMin: +min}, {yMax: +maxY, yMin: +minY}, iters)}
                                 />
                             </div>
-
-
                         )
                     }
                 </Wrapper>
