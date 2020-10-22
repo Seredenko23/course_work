@@ -24,11 +24,10 @@ class Task3 extends Component {
             data: [],
             max: '3.14',
             min: '0',
-            maxY: '1',
-            minY: '0',
             iterations: '10',
             solution: 0.64,
             log: [],
+            dots: [],
             mode: 'rectangle'
         }
     }
@@ -65,26 +64,22 @@ class Task3 extends Component {
 
     calculateArea = (e) => {
         e.preventDefault()
-        let {min, max, minY, maxY, iterations} = this.state
+        let {min, max, iterations} = this.state
         let num;
         try {
             switch(this.state.mode) {
                 case 'rectangle':
                     num = rectangle({min: +min, max: +max}, +iterations)
-                    this.setState({solution: num})
+                    this.setState({solution: num, dots: []})
                     break
                 case 'trap':
                     num = trap({min: +min, max: +max}, +iterations)
-                    this.setState({solution: num})
-                    break
-                case 'simpson':
-                    num = simpson({min: +min, max: +max}, +iterations)
-                    this.setState({solution: num})
+                    this.setState({solution: num, dots: []})
                     break
                 case 'monteCarlo':
-                    num = monteCarlo({xMin: +min, xMax: +max}, {yMin: +minY, yMax: +maxY}, +iterations)
+                    num = monteCarlo({xMin: +min, xMax: +max}, +iterations)
                     console.log(num)
-                    this.setState({solution: num})
+                    this.setState({solution: num.area, dots: num.dots})
                     break
                 default:
                     break
@@ -134,31 +129,6 @@ class Task3 extends Component {
                                     />
                                 </div>
                                 <button className={'intervals-button'} type={'submit'}>Створити</button>
-                                {this.state.mode === 'monteCarlo' && (
-                                    <>
-                                        <div className={'interval-wrapper'}>
-                                            <label htmlFor={'maxY'}>
-                                                Максимальне значення Y
-                                            </label>
-                                            <input className={'intervals-input'}
-                                                   name={'maxY'}
-                                                   value={this.state.minY}
-                                                   placeholder={'1'}
-                                                   onChange={this.changeHandle}
-                                            />
-                                        </div>
-                                        <div className={'interval-wrapper'}>
-                                            <label htmlFor={'minY'}>
-                                                Мінімальне значення Y
-                                            </label>
-                                            <input className={'intervals-input'}
-                                                   name={'minY'}
-                                                   value={this.state.maxY}
-                                                   placeholder={'0'}
-                                                   onChange={this.changeHandle}
-                                            />
-                                        </div>
-                                    </>)}
                                 <button className={'intervals-button'}
                                         type={'button'}
                                         onClick={this.calculateArea}
@@ -172,7 +142,7 @@ class Task3 extends Component {
                                 <span>{this.state.solution}</span>
                             </div>
 
-                            <AreaGraph data={this.state.data}/>
+                            <AreaGraph data={this.state.data} dots={this.state.dots}/>
                         </>
                         ) : (
                             <div className={"tables"}>

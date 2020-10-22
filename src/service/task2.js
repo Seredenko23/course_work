@@ -2,11 +2,11 @@ import {getAmountAfterDot} from "./utilities";
 
 export let data = [
     {d: 28, b: 75, t: 10},
-    {d: 21, b: 90, t: 30},
-    {d: 14, b: 60, t: 20},
-    {d: 7, b: 80, t: 25},
-    {d: 3, b: 70, t: 15},
-    {d: 1, b: 85, t: 40},
+    {d: 21, b: 70, t: 15},
+    {d: 14, b: 60, t: 16},
+    {d: 7, b: 80, t: 17},
+    {d: 3, b: 70, t: 13},
+    {d: 2, b: 75, t: 14},
 ]
 
 function calculateLeftEquation(x) {

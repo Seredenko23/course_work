@@ -69,7 +69,7 @@ class Task1 extends PureComponent {
             switch(this.state.mode) {
                 case 'iteration':
                     num = findSolutionByIteration(this.state.data)
-                    this.setState({solution: num[0], amount: num[0]})
+                    this.setState({solution: num[0], amount: num[1]})
                     break
                 case 'dichotomy':
                     let log = findSolutionByDichotomy({

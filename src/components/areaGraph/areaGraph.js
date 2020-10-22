@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import {CartesianGrid, Area, AreaChart, Tooltip, XAxis, YAxis} from "recharts";
+import React, { PureComponent } from 'react';
+import {CartesianGrid, Area, AreaChart, Tooltip, XAxis, YAxis, ReferenceDot} from "recharts";
 
-class AreaGraph extends Component {
+class AreaGraph extends PureComponent {
     render() {
+        console.log('asdeq')
         return (
             <AreaChart width={1400}
                        height={700}
@@ -19,6 +20,9 @@ class AreaGraph extends Component {
                       fill="#8884d8"
                       activeDot={{r: 8}}
                 />
+                {this.props.dots.map(dot => {
+                    return <ReferenceDot x={+dot.x.toFixed(2)} y={dot.y} r={4} fill={dot.valid ? '#fab905' : '"#8884d8"'} stroke="white"/>
+                })}
             </AreaChart>
         );
     }

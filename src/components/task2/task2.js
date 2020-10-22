@@ -5,7 +5,6 @@ import {
 } from "../../service/task2";
 import Wrapper from "../wrapper/wrapper";
 import Menu from "../menu/Menu";
-import Logger from "../Logger/logger";
 import Graph from "../graph/Graph";
 import {getAmountAfterDot} from "../../service/utilities";
 import './task2.css'
@@ -17,7 +16,7 @@ class Task2 extends PureComponent {
         this.state = {
             data: [],
             dataset: JSON.stringify(data[0]),
-            max: '15',
+            max: '150',
             min: '0',
             precision: '0.1',
             solution: {X: 0, Y: 0},
