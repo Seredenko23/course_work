@@ -60,6 +60,7 @@ class Task2 extends PureComponent {
     }
 
     render() {
+        debugger
         let dataset = JSON.parse(this.state.dataset)
         return (
             <div>

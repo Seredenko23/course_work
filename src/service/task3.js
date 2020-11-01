@@ -1,5 +1,5 @@
 import {getRandom} from "./utilities";
-import {getYMax} from '../service/utilities'
+import {getYMax} from './utilities'
 
 export function equation(x) {
     return Math.sin(x)/(1 + Math.pow(x, 2))
@@ -15,6 +15,10 @@ export function rectangle(interval, iters) {
     for(let i = 0; i < iters; i++) {
         let xEnd = xStart + d
         let xMiddle = (xStart + xEnd) / 2
+        if(equation(xMiddle) <= 0) {
+            xStart = xEnd
+            continue
+        }
         area = area + d * equation(xMiddle)
         xStart = xEnd
     }
@@ -27,7 +31,10 @@ export function trap(interval, iters) {
     if(iters <= 0) throw new Error('Кількість ітерацій не може бути менше 0')
     let area = (equation(min) + equation(max)) / 2
     let height =  (max-min)/iters
-    for(let x = min + height; x < max; x += height) area += equation(x)
+    for(let x = min + height; x < max; x += height) {
+        if(equation(x) <= 0) continue
+        area += equation(x)
+    }
     return area*height
 }
 
