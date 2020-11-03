@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Task1 from "../task1/task1";
 import Task2 from "../task2/task2";
 import Task3 from "../task3/task3";
+import Home from "../home/Home";
 import {BrowserRouter, Route, Switch, Redirect, Link} from "react-router-dom";
 import './nav-bar.css'
 
@@ -11,6 +12,13 @@ class NavBar extends Component {
             <div>
                 <BrowserRouter>
                     <nav className={'navbar'}>
+                        <div className={'nav-link'}>
+                            <Link className={'link'}
+                                  to={"home"}
+                            >
+                                Home
+                            </Link>
+                        </div>
                         <div className={'nav-link'}>
                             <Link className={'link'}
                                   to={"task1"}
@@ -34,6 +42,9 @@ class NavBar extends Component {
                         </div>
                     </nav>
                     <Switch>
+                        <Route path={'/home'}>
+                            <Home/>
+                        </Route>
                         <Route path={'/task1'}>
                             <Task1/>
                         </Route>
@@ -44,7 +55,7 @@ class NavBar extends Component {
                             <Task3/>
                         </Route>
                         <Route path={'/'}>
-                            <Redirect to={'task1'}/>
+                            <Redirect to={'home'}/>
                         </Route>
                     </Switch>
                 </BrowserRouter>

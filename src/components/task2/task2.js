@@ -30,7 +30,7 @@ class Task2 extends PureComponent {
 
     componentDidMount() {
         try {
-            let data = calculateEquation({min: 0, max: 15}, JSON.parse(this.state.dataset), +this.state.precision)
+            let data = calculateEquation({min: 0, max: 150}, JSON.parse(this.state.dataset), +this.state.precision)
             this.setState({data: data.data.filter(el => !isNaN(el.Y) && isFinite(el.Y)), solution: {X: data.correctX, Y: data.correctY}})
         } catch (e) {
             toast.error(e.message)
