@@ -78,7 +78,6 @@ class Task3 extends Component {
                     break
                 case 'monteCarlo':
                     num = monteCarlo({xMin: +min, xMax: +max}, +iterations)
-                    console.log(num)
                     this.setState({solution: num.area, dots: num.dots})
                     break
                 default:
@@ -159,7 +158,7 @@ class Task3 extends Component {
                                 <span className={"table-header"}><b>Метод Монте-Карло</b></span>
                                 <IntegralTable title={'Метод Монте-Карло'}
                                                analiticValue={0.716}
-                                               func={(iters) => monteCarlo({xMax: +max, xMin: +min}, {yMax: +maxY, yMin: +minY}, iters)}
+                                               func={(iters) => monteCarlo({xMax: +max, xMin: +min}, iters)}
                                 />
                             </div>
                         )

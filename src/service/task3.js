@@ -52,7 +52,6 @@ export function monteCarlo(interval, amountOfDots) {
     let {xMax, xMin} = interval
     let yMin = 0
     let yMax = getYMax(xMin, xMax, equation)
-    console.log(yMax)
     if(xMin > xMax || yMin > yMax) throw new Error('Min не може бути більше max')
     if(amountOfDots <= 0) throw new Error('Кількість точок не може бути менше 0')
     let validDot = 0
@@ -68,6 +67,5 @@ export function monteCarlo(interval, amountOfDots) {
         }
         dots.push(dot)
     }
-    console.log(validDot, amountOfDots, area)
     return {area: validDot / amountOfDots * area, dots: dots}
 }

@@ -17,7 +17,10 @@ class IntegralTable extends Component {
                 </thead>
                 <tbody>
                     {this.values.map(value => {
-                        let num = +this.props.func(value).toFixed(4)
+
+                        let num = this.props.func(value)
+                        if(typeof num === 'object') num = num.area.toFixed(4)
+
                         return (
                             <tr key={value}>
                                 <td className={'table-cell'}>{value}</td>

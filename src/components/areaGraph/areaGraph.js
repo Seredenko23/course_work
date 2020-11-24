@@ -3,7 +3,6 @@ import {CartesianGrid, Area, AreaChart, Tooltip, XAxis, YAxis, ReferenceDot} fro
 
 class AreaGraph extends PureComponent {
     render() {
-        console.log('asdeq')
         return (
             <AreaChart width={1400}
                        height={700}
