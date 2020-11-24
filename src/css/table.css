@@ -1,0 +1,28 @@
+table, th, td {
+    border: 1px solid #d4d4d4;
+}
+
+.tables {
+    width: 100%;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-header {
+    color: #040849;
+    font-size: 24px;
+}
+
+.graph-table {
+    width: 100%;
+    margin: 10px;
+    border-collapse: collapse;
+}
+
+.table-cell {
+    width: 20%;
+    text-align: center;
+}

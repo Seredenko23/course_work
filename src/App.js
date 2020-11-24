@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import NavBar from "./components/nav-bar/nav-bar";
 
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
 
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <NavBar/>
+        <ToastContainer/>
+      </div>
+    );
+  }
 }
 
 export default App;

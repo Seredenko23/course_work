@@ -1,0 +1,20 @@
+.menu-button {
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    background-color: inherit;
+    color: inherit;
+    cursor: pointer;
+    font-size: 14pt;
+}
+
+.menu-button:hover {
+    transition: .2s ease;
+    background-color: #3e4173;
+}
+
+.active {
+    background-color: #3e4173;
+}

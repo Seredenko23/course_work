@@ -1,0 +1,9 @@
+.main-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    width: 12%;
+    background-color: #040849;
+    color: #9c9eb7;
+}
