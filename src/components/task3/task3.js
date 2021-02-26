@@ -25,7 +25,7 @@ class Task3 extends Component {
             max: '3.14',
             min: '0',
             iterations: '10',
-            solution: 0.64,
+            solution: 0.716,
             log: [],
             dots: [],
             mode: 'rectangle'
@@ -137,7 +137,7 @@ class Task3 extends Component {
                             </form >
 
                             <div className={'solution'}>
-                                <span>X = </span>
+                                <span>S = </span>
                                 <span>{this.state.solution}</span>
                             </div>
 

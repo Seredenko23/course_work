@@ -1,0 +1,45 @@
+.interval-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.intervals {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.solution {
+    position: absolute;
+    left: 12.5%;
+    top: 70px;
+    background-color: #040849;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 4px;
+    color: white;
+}
+
+.intervals-input {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #040849;
+    margin: 3px 0;
+}
+
+.intervals-button {
+    margin: 5px 0;
+    border: 2px solid #040849;
+    background-color: #040849;
+    height: 35px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: .2s ease-out;
+}
+
+.intervals-button:hover {
+    background-color: white;
+    color: black;
+}

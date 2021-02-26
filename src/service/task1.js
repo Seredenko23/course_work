@@ -1,6 +1,5 @@
-import {query, WOLFRAM_URL} from "../config/config";
+import {WOLFRAM_URL} from "../config/config";
 import {getAmountAfterDot} from "./utilities";
-import {equation} from "./task3";
 
 export function calculateEquation(x) {
     return Math.log(x) - Math.atan(x)
@@ -19,7 +18,7 @@ export function generateGraph(interval, n, equation) {
     return result
 }
 
-export function findSolutionByDichotomy(interval, n) {
+export function findSolutionByDichotomy(interval, n, equation) {
     let {min, max} = interval
     if(min > max) throw new Error('Min не може бути більше max')
     if(equation(min) * equation(max) > 0) return null
@@ -30,7 +29,7 @@ export function findSolutionByDichotomy(interval, n) {
         let obj = {'Нижня точка': min, 'Верхня точка': max}
         center = (min + max) / 2
         obj['Центр'] = center
-        if(calculateEquation(center) * calculateEquation(max) >= 0) {
+        if(equation(center) * equation(max) >= 0) {
             max = center
             obj['Напрямок'] = 'Лівіше'
         } else {
@@ -42,7 +41,7 @@ export function findSolutionByDichotomy(interval, n) {
     return result
 }
 
-export async function findSolutionByNewton(interval, e) {
+export async function findSolutionByNewton(interval, e, query) {
     let result = []
     if(interval.min > interval.max) throw new Error('Min не може бути більше max')
     if(e <= 0) throw new Error('Точність не може бути менше 0')

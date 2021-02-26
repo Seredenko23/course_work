@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import Menu from "../menu/Menu";
 import Graph from "../graph/Graph";
 import Wrapper from "../wrapper/wrapper";
+import {queryTask1} from "../../config/config";
 import {
     calculateEquation,
     findSolutionByIteration,
@@ -75,7 +76,7 @@ class Task1 extends PureComponent {
                     let log = findSolutionByDichotomy({
                         min: +this.state.min,
                         max: +this.state.max
-                    }, +this.state.dichotomy)
+                    }, +this.state.dichotomy, calculateEquation)
                     if (log === null) {
                         this.setState({solution: 0, log: [], amount: 0})
                     } else {
@@ -84,7 +85,7 @@ class Task1 extends PureComponent {
                     }
                     break
                 case 'newton':
-                    findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton)
+                    findSolutionByNewton({min: +this.state.min, max: +this.state.max}, +this.state.newton, queryTask1)
                         .then((result) => {
                             if (result === null) {
                                 this.setState({solution: 0, log: [], amount: 0})
